@@ -7,4 +7,5 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-    aoc2021.h
+    aoc2021.h \
+    check.h

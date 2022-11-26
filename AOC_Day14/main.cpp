@@ -7,6 +7,10 @@ using namespace std;
 
 int main()
 {
-    Polymer polymer(puzzlePath("Day14_test.txt"));
+//    Polymer polymer(puzzlePath("day14_test1.txt"));
+    Polymer polymer(puzzlePath("day14_input.txt"));
+    polymer.part1();
+
     return 0;
+
 }

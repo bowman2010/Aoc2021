@@ -9,9 +9,12 @@ using namespace std;
 class Polymer
 {
     map<string,string> rules;
-    string start;
+    string polymer0;
+    bool trace = false;
 public:
     Polymer(string fname);
+    void part1();
+    string chemistry(string base);
 };
 
 #endif // POLYMER_H
