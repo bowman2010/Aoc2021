@@ -5,6 +5,7 @@
 #include <iostream>
 #include <iomanip>
 #include <climits>
+#include <set>
 
 Polymer::Polymer(string fname)
 {
@@ -32,11 +33,64 @@ void Polymer::part1()
 {
     string polymer = polymer0;
     cout << "polymer0 = " << polymer << endl;
-    for (unsigned n=0; n<10; n++)
+    for (unsigned n=10; n<10; n++)
     {
         polymer = chemistry(polymer);
     }
+    calcOccurences(polymer);
+}
 
+void Polymer::part2()
+{
+    cout << "Part 2" << endl;
+    atomsCount.clear();
+    pairsCount.clear();
+
+    // initialize pairs counters from polymer0
+    for (unsigned p=0; p<polymer0.length()-1; p++)
+        addPair(polymer0.substr(p,2));
+
+    // initialize atoms counters from polymer0
+    for (unsigned p=0; p<polymer0.length(); p++)
+        addAtom(polymer0.substr(p,1));
+
+    cout << "Polymer0 pairs count = " << pairsCount.size() << endl;
+    cout << "Polymer0 atoms count = " << atomsCount.size() << endl;
+
+
+    for (unsigned i=0; i<40; i++) {
+        for (auto &pc: pairsCount) {
+            string toInsert = rules.at(pc.first);
+            string p1 = pc.first.substr(0,1)+toInsert;
+            string p2 = toInsert+pc.first.substr(1,1);
+            addPair(p1);
+            addPair(p2);
+            addAtom(toInsert,pc.second);
+//            cout << "p1=" << p1 << " p2=" << p2 << endl;
+        }
+    }
+
+    for (auto &aa: atomsCount) {
+        cout << aa.first << ":" << aa.second << endl;
+    }
+}
+
+void Polymer::addAtom(string atom, unsigned count)
+{
+    auto aa = atomsCount.find(atom);
+    if (aa==atomsCount.end()) atomsCount.insert(make_pair(atom,1));
+        else aa->second+=count;
+}
+
+void Polymer::addPair(string pair)
+{
+    auto aa = pairsCount.find(pair);
+    if (aa==pairsCount.end()) pairsCount.insert(make_pair(pair,1));
+        else aa->second++;
+}
+
+void Polymer::calcOccurences(string polymer)
+{
     map<char,unsigned> occurences;
     for (unsigned p=0; p<polymer.length(); p++) {
         if (occurences.find(polymer[p])!=occurences.end())
@@ -55,6 +109,7 @@ void Polymer::part1()
     cout << "Atom max : " << atomMax << " : " << atomMaxCount << endl;
     cout << "Atom min : " << atomMin << " : " << atomMinCount << endl;
     cout << "Response : " << atomMaxCount-atomMinCount << endl;
+
 }
 
 string Polymer::chemistry(string base)
