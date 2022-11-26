@@ -4,6 +4,11 @@
 
 using namespace std;
 
+
+/**
+ * Part 2 not working with puzzle input tests ok
+ * @return
+ */
 int main()
 {
     auto fb = FishBank(puzzlePath("day6_input.txt"));
