@@ -1,12 +1,12 @@
+INCLUDEPATH += ../Utils
 TEMPLATE = app
 CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        chiton.cpp \
         main.cpp
 
 HEADERS += \
-    gridxy.h \
-    aoc2021.h \
-    check.h
+    chiton.h
