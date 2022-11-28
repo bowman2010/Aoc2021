@@ -11,4 +11,5 @@ HEADERS += \
     gridxy.h \
     aoc2021.h \
     check.h \
+    itemCounter.h \
     strUtils.h

@@ -1,26 +1,30 @@
 #include <iostream>
 #include <string>
-#include <strUtils.h>
-#include <containerUtils.h>
+#include <itemCounter.h>
 
 using namespace std;
 
+
 int main()
 {
-    string s("az,SANTA,sdzeze,abcdefgh,azeaze");
-    vector<string> vs = bml::splitStr(s,',');
-    cout << "v      : " << bml::vec2str(vs,'|') << endl;
+    bml::ItemCounter<string> ic1;
+    ic1.add("AA");
+    ic1.add("AA");
+    ic1.add("BB");
+    ic1.add("CC");
+    cout << " count(AA) : " << ic1.count("AA") << endl;
+    cout << " count(BB) : " << ic1.count("BB") << endl;
+    cout << " count(CC) : " << ic1.count("CC") << endl;
 
-    vector<vector<int>> vi;
-    for (int i=0; i<10; i++)
-    {
-        vector<int> vr;
-        for (int j=0; j<10; j++)
-        {
-            vr.push_back(i*10+j);
-        }
-        vi.push_back(vr);
-    }
-    cout << "longest:" << bml::longestInVec(vi) << endl;
+    cout << "removing AA and BB" << endl;
+    ic1.remove("AA"); ic1.remove("BB");
+    cout << " count(AA)  : " << ic1.count("AA") << endl;
+    cout << " count(BB) : " << ic1.count("BB") << endl;
+
+    cout << "removing AA and BB" << endl;
+    ic1.remove("AA"); ic1.remove("BB");
+    cout << " count(AA)  : " << ic1.count("AA") << endl;
+    cout << " count(BB) : " << ic1.count("BB") << endl;
+
     return 0;
 }
