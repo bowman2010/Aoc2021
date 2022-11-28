@@ -59,6 +59,14 @@ public:
         if (itr==counters.end()) return 0;
         return itr->second;
     }
+
+    /**
+     * @brief clear al counters
+     */
+    void clear()
+    {
+        counters.clear();
+    }
 };
 
 
