@@ -27,6 +27,13 @@ Chiton::Chiton(string fname)
 void Chiton::part1()
 {
     cout << "part #1" << endl;
+    // Calc diagonal risk
+    for (unsigned x=1; x<endPoint.x; x++)
+    {
+        lowestRiskFound+=map[x][x]+map[x+1][x];
+    }
+    cout << "Diad risk: " << lowestRiskFound << endl;
+
     lowestRisk(Coord(0,0));
     cout << "lower risk = " << lowestRiskFound-mapAt(startPoint) << endl;
 }
@@ -34,10 +41,10 @@ void Chiton::part1()
 void Chiton::lowestRisk(Coord coord, unsigned risk)
 {
     if (risk>lowestRiskFound) {
-//        cout << "risk " << risk << "too big" << endl;
         return;
     }
     risk+=mapAt(coord);
+
     if (coord==endPoint) {
         cout << "reached endpoint with risk " << risk;
         if (risk<lowestRiskFound) {

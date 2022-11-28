@@ -7,6 +7,8 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
+    containerUtils.h \
     gridxy.h \
     aoc2021.h \
-    check.h
+    check.h \
+    strUtils.h
