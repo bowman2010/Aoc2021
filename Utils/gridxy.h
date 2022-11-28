@@ -47,6 +47,18 @@ public:
     }
 
     /**
+     * @brief fill the grid with specified value
+     * @param value
+     */
+    void fill(T value)
+    {
+        for (auto row: _grid) {
+            for (auto d: row) {
+                d = value;
+            }
+        }
+    }
+    /**
      * @brief data : direct access to data
      * @return
      */
