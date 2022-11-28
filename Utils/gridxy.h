@@ -6,9 +6,15 @@
 
 namespace bml {
 
+/**
+ * Defines a gridTuple (coordinates x and y and the value at that position)
+ */
 template<typename T>
 using GridXYTuple = std::tuple<std::size_t,std::size_t,T>;
 
+/**
+ * @brief The GridXY class : represent a resizable XY grid
+ */
 template <class T>
 class GridXY {
 protected:
@@ -18,11 +24,21 @@ protected:
 public:
     GridXY() {}
 
+    /**
+     * @brief GridXY : construct an XY Grid with specified dimensions
+     * @param width
+     * @param height
+     */
     GridXY(std::size_t width, std::size_t height)
     {
         resize(width,height);
     }
 
+    /**
+     * @brief resize : resize the grid with specified dimensions
+     * @param width
+     * @param height
+     */
     void resize(std::size_t width, std::size_t height)
     {
         _grid.resize(height);
@@ -30,18 +46,53 @@ public:
         _width = width; _height=height;
     }
 
+    /**
+     * @brief data : direct access to data
+     * @return
+     */
     std::vector<std::vector<T>> data() { return _grid; }
 
+    /**
+     * @brief width : return the grid width
+     * @return
+     */
     std::size_t width()  const { return  _width; }
 
+    /**
+     * @brief height : return the grid height
+     * @return
+     */
     std::size_t height() const { return _height; }
 
+    /**
+     * @brief validPos : check if coordinates are inside the grid
+     * @param x
+     * @param y
+     * @return
+     */
     bool validPos(std::size_t x, std::size_t y) { return (x<_width && y<_height); }
 
+    /**
+     * @brief at : return a reference to the item at position x,y
+     * @param x
+     * @param y
+     * @return
+     */
     T& at(std::size_t x, std::size_t y) { return _grid[y][x]; }
 
+    /**
+     * @brief set : set the value of item at position x,y
+     * @param x
+     * @param y
+     * @param val
+     */
     void set(std::size_t x, std::size_t y, const T val) { _grid[y][x] = val; }
 
+    /**
+     * @brief columnValues : a vector of values in column x
+     * @param x
+     * @return
+     */
     std::vector<T> columnValues(std::size_t x)
     {
         std::vector<T> col;
@@ -49,6 +100,11 @@ public:
         return col;
     }
 
+    /**
+     * @brief column : a vector of GridXYTuples for column x
+     * @param x
+     * @return
+     */
     std::vector<GridXYTuple<T>> column(std::size_t x)
     {
         std::vector<std::tuple<size_t,size_t,T>> col;
@@ -57,6 +113,11 @@ public:
         return col;
     }
 
+    /**
+     * @brief rowValues : return a vector of values in row y
+     * @param y
+     * @return
+     */
     std::vector<T> rowValues(std::size_t y)
     {
         std::vector<T> row;
@@ -64,6 +125,11 @@ public:
         return row;
     }
 
+    /**
+     * @brief row: a vector of GridXYTuples for row y
+     * @param x
+     * @return
+     */
     std::vector<GridXYTuple<T>> row(std::size_t y)
     {
         std::vector<GridXYTuple<T>> col;
@@ -72,6 +138,12 @@ public:
         return col;
     }
 
+    /**
+     * @brief adjacents4 : a vector GridXYTuples of cardinal adjacents
+     * @param x
+     * @param y
+     * @return
+     */
     std::vector<GridXYTuple<T>> adjacents4(std::size_t x, std::size_t y)
     {
         std::vector<GridXYTuple<T>> adj;
@@ -82,6 +154,12 @@ public:
         return adj;
     }
 
+    /**
+     * @brief adjacents8 : a vector GridXYTuples of all adjacents
+     * @param x
+     * @param y
+     * @return
+     */
     std::vector<GridXYTuple<T>> adjacents8(std::size_t x, std::size_t y)
     {
         std::vector<GridXYTuple<T>> adj = adjacents4(x,y);
