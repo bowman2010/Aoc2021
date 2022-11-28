@@ -4,11 +4,19 @@
 #include <map>
 namespace bml {
 
+/**
+ * @brief A class that counts items
+ *
+ */
 template <class T>
 class ItemCounter {
 protected:
     std::map<T,unsigned> counters;
 public:
+    /**
+     * @brief add : add or increase the counter of item
+     * @param item
+     */
     unsigned add(const T &item) {
         auto itr = counters.find(item);
         if (itr==counters.end()) {
@@ -17,6 +25,10 @@ public:
         return itr->second;
     }
 
+    /**
+     * @brief remove : decrease the count of item
+     * @param item
+     */
     unsigned remove(const T &item) {
         auto itr = counters.find(item);
         if (itr!=counters.end()) {
@@ -29,6 +41,19 @@ public:
         return 0;
     }
 
+    /**
+     * @brief removeAll : set the count of item to zero
+     * @param item
+     */
+    unsigned removeAll(const T &item) {
+        counters.erase(item);
+        return 0;
+    }
+
+    /**
+     * @brief count : the count of item
+     * @param item
+     */
     unsigned count(const T &item) {
         auto itr = counters.find(item);
         if (itr==counters.end()) return 0;
