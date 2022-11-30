@@ -16,13 +16,15 @@ void test_Add_Count()
 void test_remove()
 {
     bml::ItemCounter<string> ic1;
-    ic1.add("AA");
-    ic1.add("BB",99);
-    ic1.remove("AA");
-    ic1.remove("BB",90);
+    ic1.add("AA",3);
+    ic1.remove("AA",2,false);
+    ic1.remove("AA",2,false);
+
+    ic1.add("AA",3);
+    ic1.remove("AA",2,true);
+    ic1.remove("AA",2,true);
 
     CHECK(ic1.count("AA")==0);
-    CHECK(ic1.count("BB")==9);
 }
 
 void test_removeAll()

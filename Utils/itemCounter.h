@@ -39,17 +39,18 @@ public:
      */
     unsigned remove(const T &item, unsigned count=1, bool del=false) {
         auto itr = counters.find(item);
+
         if (itr!=counters.end()) {
-            if (itr->second<=count) {
-                if (del) counters.erase(item);
+
+            if (itr->second <= count)
+                itr->second=0;
+                else return itr->second-=count;
+
+            if (del && itr->second==0) {
+                counters.erase(item);
                 return 0;
             }
-            else {
-                itr->second -= count;
-                return itr->second;
-            }
-        }
-        return 0;
+        } else return 0; // item not found
     }
 
     /**

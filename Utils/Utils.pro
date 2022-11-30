@@ -8,6 +8,7 @@ SOURCES += \
 
 HEADERS += \
     containerUtils.h \
+    countersTests.hpp \
     gridxy.h \
     aoc2021.h \
     check.h \
