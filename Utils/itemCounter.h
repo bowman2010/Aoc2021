@@ -7,6 +7,8 @@
 
 namespace bml {
 
+
+
 /**
  * @brief A class that counts items
  *
@@ -35,7 +37,7 @@ public:
      * @param count : how many are removed
      * @param del : if true, element is removed from map else count set to zero
      */
-    unsigned remove(const T &item, unsigned count=1, bool del=true) {
+    unsigned remove(const T &item, unsigned count=1, bool del=false) {
         auto itr = counters.find(item);
         if (itr!=counters.end()) {
             if (itr->second<=count) {
@@ -55,7 +57,7 @@ public:
      * @param item
      * @param del : if true, element is removed from map else set count to zero
      */
-    unsigned removeAll(const T &item, bool del=true) {
+    unsigned removeAll(const T &item, bool del=false) {
         auto itr = counters.find(item);
         if (itr!=counters.end()) {
             if (del) counters.erase(item);
@@ -66,16 +68,19 @@ public:
 
     /**
      * @brief clear al counters
-     * @param del : if true, elements areremoved from map else their count are set to zero
+     * @param del : if true, elements are removed from map else their count are set to zero
      */
-    void reset(bool del=true)
+    void clear()
     {
-        if (!del) {
-            counters.clear();
-        } else {
-            for (auto p = counters.begin(); p<counters.end; p++)
-                p->second=0;
-        }
+        counters.clear();
+    }
+
+    /**
+     * @brief itemsCount : the number of counters
+     */
+    unsigned itemsCount()
+    {
+        return counters.size();
     }
 
     /**
@@ -88,65 +93,77 @@ public:
         return itr->second;
     }
 
-    /**
-     * @brief low : lowest items count
-     * @return a vector of pairs of <item,counter>
-     */
-    std::vector<std::pair<T&,unsigned>> lowests() const {
-        unsigned low = UINTMAX_MAX;
-        std::vector<std::pair<T&,unsigned>> vec;
+//    /**
+//     * @brief lowests : lowest items count
+//     * @return a vector of pairs of <item,counter>
+//     */
+//    std::vector<std::pair<T,unsigned>> lowests() const {
+//        unsigned low = UINT_MAX;
+//        std::vector<std::pair<T&,unsigned>> vec;
+//
+//        for (auto data: counters) {
+//            if (data.second==low) vec.push_back(data);
+//            else if(data.second<low) {
+//                low=data.second;
+//                vec.clear();
+//                vec.push_back(std::make_pair(data.first,data.second));
+//            }
+//        }
+//        return vec;
+//    }
+//
+//    /**
+//     * @brief high : highest count
+//     * @return a vector of pairs of <item,counter>
+//     */
+//    std::vector<std::pair<T&,unsigned>> highests() const {
+//        unsigned high = 0;
+//        std::vector<std::pair<T&,unsigned>> vec;
+//        for (auto itr=counters.begin(); itr!=counters.end(); itr++)
+//        {
+//            if (itr->second==high) vec.push_back(*itr);
+//            else if(itr->second > high) {
+//                high = itr->second;
+//                vec.clear();
+//                vec.push_back(*itr);
+//            }
+//        }
+//        return vec;
+//   }
 
-        for (auto itr=counters.begin(); itr<counters.end(); itr++)
-        {
-            if (itr->second==low) vec.push_back(*itr);
-            else if(itr->second < low) {
-                vec.clear();
-                vec.push_back(*itr);
-            }
-        }
-        return vec;
+    /**
+     * @brief min : get the minimum count
+     * @return an unsigned
+     */
+    unsigned min() const {
+        unsigned min = UINT_MAX;
+        if (counters.size()==0) return 0;
+        for (auto itr=counters.begin(); itr!=counters.end(); itr++)
+            if (itr->second < min) min=itr->second;
+        return min;
     }
 
     /**
-     * @brief high : highest count
-     * @return a vector of pairs of <item,counter>
-     */
-    std::vector<std::pair<T&,unsigned>> highests() const {
-        unsigned high = 0;
-        std::vector<std::pair<T&,unsigned>> vec;
-        for (auto itr=counters.begin(); itr<counters.end(); itr++)
-        {
-            if (itr->second==high) vec.push_back(*itr);
-            else if(itr->second > high) {
-                vec.clear();
-                vec.push_back(*itr);
-            }
-        }
-        return vec;
-   }
-
-    /**
-     * @brief low : get the lowest count
+     * @brief max : get the maximum count
      * @return an unsigned
      */
-    unsigned low() const {
-        unsigned low = UINTMAX_MAX;
+    unsigned max() const {
+        unsigned max = 0;
         if (counters.size()==0) return 0;
-        for (auto itr=counters.begin(); itr<counters.end(); itr++)
-            if (itr->second < low) low=itr->second;
-        return low;
+        for (auto itr=counters.begin(); itr!=counters.end(); itr++)
+            if (itr->second > max) max=itr->second;
+        return max;
     }
 
     /**
-     * @brief high : get the highest count
+     * @brief mean : get the mean of counters
      * @return an unsigned
      */
-    unsigned high() const {
-        unsigned high = 0;
+    double mean() const {
+        long total = 0;
         if (counters.size()==0) return 0;
-        for (auto itr=counters.begin(); itr<counters.end(); itr++)
-            if (itr->second > high) high=itr->second;
-        return high;
+        for (auto d: counters) total+=d.second;
+        return total/counters.size();
     }
 };
 
