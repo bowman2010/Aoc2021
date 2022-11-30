@@ -18,7 +18,6 @@ SUBDIRS += \
     AOC_Day11 \
     AOC_Day12 \
     AOC_Day13 \
-    AOC_Day14 \
     AOC_Day14b \
     AOC_Day15 \
     Utils

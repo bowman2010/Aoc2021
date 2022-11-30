@@ -28,3 +28,31 @@ Polymer::Polymer(string fname)
         cout << "  " << rule.first << " => " << rule.second << endl;
     }
 }
+
+void Polymer::initialize()
+{
+    atomsPairs.clear();
+    atoms.clear();
+    for (unsigned i=0; i<polymer0.length()-1; i++)
+    {
+        string pair = polymer0.substr(i,2);
+        atoms.add(pair[0]);
+        atomsPairs.add(pair);
+    }
+    atoms.add(polymer0[polymer0.length()-1]);
+
+}
+
+
+void Polymer::doChemistryMagic(unsigned steps)
+{
+    initialize();
+    for (unsigned i=1; i<steps; i++)
+        chemistryReaction();
+}
+
+void Polymer::chemistryReaction()
+{
+
+}
+
