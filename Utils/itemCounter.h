@@ -150,10 +150,16 @@ public:
      */
     unsigned max() const {
         unsigned max = 0;
-        if (counters.size()==0) return 0;
         for (auto itr=counters.begin(); itr!=counters.end(); itr++)
             if (itr->second > max) max=itr->second;
         return max;
+    }
+
+    unsigned sum() const {
+        unsigned sum = 0;
+        for (auto itr=counters.begin(); itr!=counters.end(); itr++)
+            sum += itr->second;
+        return sum;
     }
 
     /**
@@ -166,8 +172,16 @@ public:
         for (auto d: counters) total+=d.second;
         return total/counters.size();
     }
-};
 
+    /**
+     * @brief getCounters : return all counters
+     * @return
+     */
+    const std::map<T, unsigned> getCounters() const
+    {
+        return counters;
+    }
+};
 
 
 } // Eof namespace

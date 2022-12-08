@@ -6,9 +6,11 @@ using namespace std;
 
 int main()
 {
-    Polymer poly(puzzlePath("day14_test1.txt"));
+    Polymer polymer(puzzlePath("day14_test1.txt"));
 //    Polymer polymer(puzzlePath("day14_input.txt"));
-    poly.doChemistryMagic(10);
-    poly.doChemistryMagic(40);
+
+
+    polymer.doChemistryMagic(5);
+//        polymer.doChemistryMagic(40);
     return 0;
 }

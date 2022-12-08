@@ -6,18 +6,18 @@
 
 
 
-FishBank::FishBank(std::string puzzlePath)
+FishBank::FishBank(string puzzlePath)
 {
     int fishAge;
     char sep;
-    std::string str1,str2;
+    string str1,str2;
 
-    std::ifstream fin(puzzlePath);
+    ifstream fin(puzzlePath);
     getline(fin,str1);
 
     for (int i=0; i<=8; i++) initial[i]=0;
 
-    std::stringstream iss(str1);
+    stringstream iss(str1);
     while (iss.good()) {
         iss >> fishAge;
         if (fin.eof()) break;
@@ -26,27 +26,38 @@ FishBank::FishBank(std::string puzzlePath)
     }
 }
 
+void FishBank::part1()
+{
+    cout << "Part #1" << endl;
+    simulate(80);
+    countBank();
+    cout << endl;
+}
+
+void FishBank::part2()
+{
+    cout << "Part #2" << endl;
+    simulate(256);
+    countBank();
+    cout << endl;
+}
+
 
 void FishBank::simulate(int days)
 {
     for (int i=0; i<=8; i++) fishCountByAge[i]=initial[i];
-
-    for (int i=1; i<=days; i++) {
-        step();
-        std::cout << "#Fishes after " << std::setw(4) << i << " days: " ;
-        countBank();
-    }
-    std::cout << std::endl;
+    for (int i=1; i<=days; i++)  step();
+    cout << endl;
 }
 
 void FishBank::step()
 {
-    unsigned reproducers = fishCountByAge[0];
+    unsigned long long reproducers = fishCountByAge[0];
     for (unsigned i=0; i<8; i++) {
         fishCountByAge[i] = fishCountByAge[i+1];
     }
-    fishCountByAge[8]=reproducers;
-    fishCountByAge[6]+=reproducers;
+    fishCountByAge[8]  = reproducers;
+    fishCountByAge[6] += reproducers;
 }
 
 long long FishBank::countBank()
@@ -54,9 +65,9 @@ long long FishBank::countBank()
     long long total = 0;
     for (unsigned i=0; i<=8; i++) {
         total += fishCountByAge[i];
-        std::cout << i << ":" << fishCountByAge[i] << " ";
+        cout << i << ":" << fishCountByAge[i] << " ";
     }
-    std::cout << "total:" << total << std::endl;
+    cout << endl << "total:" << total << endl << endl;
 
     return total;
 }

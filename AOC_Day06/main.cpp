@@ -13,7 +13,7 @@ int main()
 {
     auto fb = FishBank(puzzlePath("day6_input.txt"));
 //    auto fb = FishBank(puzzlePath("day6_test.txt"));
-  //    fb.simulate(18);
-  fb.simulate(256);
-  return 0;
+    fb.part1();
+    fb.part2();
+    return 0;
 }
